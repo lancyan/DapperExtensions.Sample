@@ -1,0 +1,16 @@
+D:\我的工作\DapperExtensions\Sample\Cache\bin\Debug\Cache.dll
+D:\我的工作\DapperExtensions\Sample\Cache\bin\Debug\Cache.pdb
+D:\我的工作\DapperExtensions\Sample\Cache\obj\Debug\Cache.dll
+D:\我的工作\DapperExtensions\Sample\Cache\obj\Debug\Cache.pdb
+D:\我的工作\DapperExtensions\Sample\Cache\bin\Debug\Enyim.Caching.dll
+D:\我的工作\DapperExtensions\Sample\Cache\bin\Debug\ServiceStack.Interfaces.dll
+D:\我的工作\DapperExtensions\Sample\Cache\bin\Debug\ServiceStack.Redis.dll
+D:\我的工作\DapperExtensions\Sample\Cache\bin\Debug\StackExchange.Redis.dll
+D:\我的工作\DapperExtensions\Sample\Cache\bin\Debug\WebApi.OutputCache.Core.dll
+D:\我的工作\DapperExtensions\Sample\Cache\bin\Debug\WebApi.OutputCache.V2.dll
+D:\我的工作\DapperExtensions\Sample\Cache\bin\Debug\ServiceStack.Text.dll
+D:\我的工作\DapperExtensions\Sample\Cache\bin\Debug\ServiceStack.Common.dll
+D:\我的工作\DapperExtensions\Sample\Cache\bin\Debug\System.Net.Http.Formatting.dll
+D:\我的工作\DapperExtensions\Sample\Cache\bin\Debug\System.Web.Http.dll
+D:\我的工作\DapperExtensions\Sample\Cache\bin\Debug\Newtonsoft.Json.dll
+D:\我的工作\DapperExtensions\Sample\Cache\obj\Debug\Cache.csprojResolveAssemblyReference.cache

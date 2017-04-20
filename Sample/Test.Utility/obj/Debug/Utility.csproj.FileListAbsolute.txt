@@ -1,0 +1,9 @@
+D:\我的工作\DapperExtensions\Utility\obj\Debug\Utility.csprojResolveAssemblyReference.cache
+D:\我的工作\DapperExtensions\Sample\Utility\bin\Debug\Utility.dll
+D:\我的工作\DapperExtensions\Sample\Utility\bin\Debug\Utility.pdb
+D:\我的工作\DapperExtensions\Sample\Utility\bin\Debug\Newtonsoft.Json.dll
+D:\我的工作\DapperExtensions\Sample\Utility\bin\Debug\System.Net.Http.Formatting.dll
+D:\我的工作\DapperExtensions\Sample\Utility\bin\Debug\System.Web.Http.dll
+D:\我的工作\DapperExtensions\Sample\Utility\obj\Debug\Utility.dll
+D:\我的工作\DapperExtensions\Sample\Utility\obj\Debug\Utility.pdb
+D:\我的工作\DapperExtensions\Sample\Utility\obj\Debug\Utility.csprojResolveAssemblyReference.cache

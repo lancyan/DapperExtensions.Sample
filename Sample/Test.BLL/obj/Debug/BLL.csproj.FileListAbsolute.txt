@@ -1,0 +1,12 @@
+D:\我的工作\DapperExtensions\Sample\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
+D:\我的工作\DapperExtensions\Sample\BLL\bin\Debug\BLL.dll
+D:\我的工作\DapperExtensions\Sample\BLL\bin\Debug\BLL.pdb
+D:\我的工作\DapperExtensions\Sample\BLL\bin\Debug\DAL.dll
+D:\我的工作\DapperExtensions\Sample\BLL\bin\Debug\DapperExtensions.dll
+D:\我的工作\DapperExtensions\Sample\BLL\bin\Debug\Entity.dll
+D:\我的工作\DapperExtensions\Sample\BLL\bin\Debug\MySql.Data.dll
+D:\我的工作\DapperExtensions\Sample\BLL\bin\Debug\DapperExtensions.pdb
+D:\我的工作\DapperExtensions\Sample\BLL\bin\Debug\DAL.pdb
+D:\我的工作\DapperExtensions\Sample\BLL\bin\Debug\Entity.pdb
+D:\我的工作\DapperExtensions\Sample\BLL\obj\Debug\BLL.dll
+D:\我的工作\DapperExtensions\Sample\BLL\obj\Debug\BLL.pdb
