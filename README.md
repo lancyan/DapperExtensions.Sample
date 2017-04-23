@@ -1,7 +1,7 @@
 # DapperExtensions.Sample
 the Sample of DapperExtensions 
 
-项目主要包含
+项目主要包含   
 1、MvcApplication1 有若干通过httpclient调用WEBAPI的例子，   
 2、Test.API  为WEBAPI服务提供端，简单封装了身份校验，错误捕获，统一json返回值等操作的filter的例子   
 3、Test.BLL 业务逻辑封装例子   
