@@ -16,6 +16,8 @@ namespace Test.Entity
         private Int32 _ID;
         private String _UserName = "";
         private String _NickName = "";
+        private Int32 _Sex = 0;
+        private DateTime _Birthday;
         private String _Password = "";
         private String _Email = "";
         private String _CardID = "";
@@ -55,6 +57,22 @@ namespace Test.Entity
         {
             get { return _NickName; }
             set { _NickName = value; }
+        }
+
+        [Description("性别")]
+        [DataMember]
+        public Int32 Sex
+        {
+            get { return _Sex; }
+            set { _Sex = value; }
+        }
+
+        [Description("生日")]
+        [DataMember]
+        public DateTime Birthday
+        {
+            get { return _Birthday; }
+            set { _Birthday = value; }
         }
 
         [Description("密码")]

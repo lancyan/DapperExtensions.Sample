@@ -1,22 +1,13 @@
 ﻿@{
     ViewBag.Title = "Home";
 }
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
 
 
 <h2>Home</h2>
 <div>调用Web API服务</div>
 <div id="divTest"></div>
 
-<script  type="text/javascript">
-    $(function () {
-
-        var str = $.get("/Home/GetTest", { id: 0 }, function (data) {
-            $("#divTest").html(data);
-        });
-
-    });
-</script>
 
 
 

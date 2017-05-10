@@ -1,25 +1,34 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta name="format-detection" content="telephone=no" />
     <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
 
-     @Styles.Render("~/Content/_base.css")
+     @Styles.Render("~/Content/base.css")
      @Styles.Render("~/Content/form.css")
      @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
-     @Scripts.Render("~/js/bootstrap.min.js")
+     @Scripts.Render("~/Scripts/bootstrap.min.js")
+
+     @Scripts.Render("~/Scripts/common.js")
     
 </head>
 <body>
 
+    <!--这里是header模板-->
     @RenderSection("header", required: false)
- 
+    <!--header模板结束-->
+
+    <!--这里是body-->
      @RenderBody()
+   <!--body结束-->
 
+
+    <!--这里是footer模板-->
     @RenderSection("footer", required: false)
-
+     <!--footer模板结束-->
    
 </body>
 </html>

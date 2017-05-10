@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DapperExtensions">
-      <HintPath>..\..\DapperExtensions\bin\Debug\DapperExtensions.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data">
       <HintPath>..\DLL\MySql.Data.dll</HintPath>
@@ -62,6 +59,10 @@
     <Compile Include="UsersDAL.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\DapperExtensions\DapperExtensions.csproj">
+      <Project>{4c1a2c6c-a469-4c87-98d1-f1d517fa1acf}</Project>
+      <Name>DapperExtensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Test.Entity\Test.Entity.csproj">
       <Project>{f095be21-38c0-4c35-9bcc-7c11bdb2b3a4}</Project>
       <Name>Test.Entity</Name>

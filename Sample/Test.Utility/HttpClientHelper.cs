@@ -71,7 +71,6 @@ namespace Test.Utility
         public static async Task<T> GetAsyncObject<T>(string foldName, string controllerName, string methodName = "Get", string paras = "")
         {
             string result = await GetAsyncString(foldName, controllerName, methodName, paras);
-
             return string.IsNullOrEmpty(result) ? default(T) : JsonConvert.DeserializeObject<T>(result);
 
         }

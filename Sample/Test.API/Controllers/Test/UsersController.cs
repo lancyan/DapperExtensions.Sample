@@ -13,24 +13,69 @@ using Newtonsoft.Json;
 
 namespace API.Controllers
 {
+    
     //使缓存作废
     //[AutoInvalidateCacheOutput]
     //[CacheOutput(ClientTimeSpan = 60, ServerTimeSpan = 60)]
+    /// <summary>
+    /// 用户api列表
+    /// </summary>
     public class UsersController : ApiController
     {
         //注意post参数不能是多个对象参数
         //http://www.cnblogs.com/Juvy/p/3903974.html
-        [ApiActionFilter]
+        //[ApiActionFilter]
+        /// <summary>
+        /// 获取一个用户通过id
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>User对象</returns>
         public Users Get(int id)
         {
             UsersBLL bll = new UsersBLL();
             return bll.Get(id);
         }
 
-        // GET api/values
+        /// <summary>
+        /// 获取用户名
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<string> GetUserName()
         {
             return new string[] { "Test1", "Test2" };
+        }
+
+       
+        //[CacheOutput(ClientTimeSpan = 60, ServerTimeSpan = 60)]
+         //[HttpGet]
+        /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        /// <param name="user">用户对象</param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public IEnumerable<Users> GetList([FromUri]Users user, int pageIndex, int pageSize)
+        {
+            UsersBLL bll = new UsersBLL();
+
+            return bll.Where(string.Format("userName='{0}'" , user.UserName), "id", pageIndex, pageSize);
+
+        }
+
+        //[HttpGet]
+        //[CacheOutput(ClientTimeSpan = 60, ServerTimeSpan = 60)]
+        /// <summary>
+        /// 获取数量
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public int GetCount(string userName)
+        {
+            UsersBLL bll = new UsersBLL();
+
+            return bll.Count(string.Format("userName='{0}'", userName));
+
         }
 
 
@@ -38,7 +83,7 @@ namespace API.Controllers
         /// 获取所有的用户信息
         /// </summary>
         /// <returns></returns>
-        [CacheOutput(ClientTimeSpan = 60, ServerTimeSpan = 60)]
+        //[CacheOutput(ClientTimeSpan = 60, ServerTimeSpan = 60)]
         [ApiActionFilter]
         public IEnumerable<Users> GetUsers()
         {
@@ -72,7 +117,11 @@ namespace API.Controllers
             return bll.GetBillsByUser(userId);
         }
 
-        // POST api/values
+        /// <summary>
+        /// Post提交一个User对象
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public bool Post([FromBody]Users entity)
         {
             // {
@@ -100,7 +149,11 @@ namespace API.Controllers
         //    var entity = JsonConvert.DeserializeObject<Users>(value);
         //    return bll.Update(entity, new { id = id });
         //}
-
+        /// <summary>
+        /// 删除一个User通过id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         public bool Delete(int id)
         {
@@ -108,8 +161,14 @@ namespace API.Controllers
             return bll.Delete(id);
         }
 
+        
         //[IgnoreCacheOutput]
-        [CacheOutput(ClientTimeSpan = 60, ServerTimeSpan = 60, AnonymousOnly = true)]
+        //[CacheOutput(ClientTimeSpan = 60, ServerTimeSpan = 60, AnonymousOnly = true)]
+        /// <summary>
+        /// 获取时间
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public DateTime GetTime(int id)
         {

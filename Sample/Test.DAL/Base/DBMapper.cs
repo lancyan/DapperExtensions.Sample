@@ -70,9 +70,9 @@ namespace Test.DAL.Base
                         db.Add(tdb);
                     }
                 }
-                catch (SqlException ex)
+                catch  
                 {
-
+                    throw;
                 }
                 if (db.Count > 0)
                 {

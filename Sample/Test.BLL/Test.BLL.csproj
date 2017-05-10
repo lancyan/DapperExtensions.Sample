@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DapperExtensions">
-      <HintPath>..\..\DapperExtensions\bin\Debug\DapperExtensions.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -50,6 +47,10 @@
     <Compile Include="UsersBLL.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\DapperExtensions\DapperExtensions.csproj">
+      <Project>{4c1a2c6c-a469-4c87-98d1-f1d517fa1acf}</Project>
+      <Name>DapperExtensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Test.DAL\Test.DAL.csproj">
       <Project>{4dd41632-d014-42a0-957b-a9feacef1ddc}</Project>
       <Name>Test.DAL</Name>

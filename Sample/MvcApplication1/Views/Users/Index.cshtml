@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+
+
+
+
+<h2>Home</h2>
+<div>调用Web API服务</div>
+<div id="divTest"></div>
+
+
+<input id="Button1" type="button" value="button" onclick="gotoEdit()" />
+
+
+<script  type="text/javascript">
+
+
+    function gotoEdit() {
+        window.location.href = "/users/edit/?id=2";
+    }
+
+
+
+    $(function () {
+
+        window.alert("你好", function () {
+
+            debugger;
+
+        });
+
+        getList();
+
+        getCount();
+
+        test();
+
+        $.ajax({
+            url: "/users/GetList",
+            type: "GET",
+            data: { id: 4, userName: "Tom", pageIndex: 0, pageSize: 20 },
+            success: function (data) {
+               
+                alert(data);
+            }
+        });
+    });
+
+    function test() {
+        var str = $.get("/users/GetTime", { id: 1 }, function (data) {
+            $("#divTest").html(data);
+        });
+    }
+
+
+    function getList() {
+
+        //    var str = $.get("/users/GetList", { id: 4, userName: "Tom", pageIndex: 0, pageSize: 20 }, function (data) {
+        //        $("#divTest").html(data);
+        //    });
+    }
+
+    function getCount() {
+
+        var str = $.get("/users/GetCount", { id: 4, userName: "Tom" }, function (data) {
+            alert(data);
+        });
+    }
+
+
+</script>
+
+ 
+
+
+
+

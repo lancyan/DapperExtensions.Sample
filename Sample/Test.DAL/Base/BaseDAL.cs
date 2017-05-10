@@ -60,8 +60,7 @@ namespace Test.DAL.Base
                 foreach (var item in tlist)
                 {
                     var cfg = new DapperExtensionsConfiguration(typeof(AutoClassMapper<>), new List<Assembly>(), item.dBase);
-                    var tdb = new Database(item.Connection, new SqlGeneratorImpl(cfg));
-                    db.Add(tdb);
+                    db.Add(new Database(item.Connection, new SqlGeneratorImpl(cfg)));
                 }
             }
             catch

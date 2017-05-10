@@ -18,6 +18,11 @@ namespace WebApplication1
             var users = bll.GetUsers();
 
 
+            var b = bll.Exists(p => p.UserName == "Tom");
+
+            
+            
+
             StringBuilder sb = new StringBuilder();
 
             foreach (var user in users)

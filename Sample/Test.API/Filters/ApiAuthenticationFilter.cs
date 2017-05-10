@@ -36,7 +36,7 @@ namespace Test.API.Filters
             string hm = request.HttpMethod;
             var dict = actionContext.ActionArguments;
 
-            if(!String.IsNullOrWhiteSpace(request.Headers[SignHelper.PlatformId]))
+            if (!String.IsNullOrWhiteSpace(request.Headers[SignHelper.PlatformId]))
             {
                 dict.Add(SignHelper.PlatformId, request.Headers[SignHelper.PlatformId]);
             }
@@ -123,8 +123,8 @@ namespace Test.API.Filters
             }
 
             base.OnActionExecuting(actionContext);
-
             return;
+
             if (SignHelper.IsPassVerify(qs, dict))
             {
                 base.OnActionExecuting(actionContext);
@@ -138,6 +138,7 @@ namespace Test.API.Filters
                 };
                 actionContext.Response = actionContext.Request.CreateResponse(result.Status, result);
             }
+
         }
 
         public override void OnActionExecuted(HttpActionExecutedContext filterContext)

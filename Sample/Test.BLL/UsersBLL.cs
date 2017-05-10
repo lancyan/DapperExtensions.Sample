@@ -72,10 +72,10 @@ namespace Test.BLL
         #endregion
 
         #region Count
-        public int Count(IPredicate predicate)
-        {
-            return dal.Count(predicate);
-        }
+        //public int Count(IPredicate predicate)
+        //{
+        //    return dal.Count(predicate);
+        //}
         public int Count(string sql = null, string where = null)
         {
             return dal.Count(sql, where);
@@ -88,10 +88,10 @@ namespace Test.BLL
         #endregion
 
         #region Exists
-        public bool Exists(IPredicate predicate)
-        {
-            return dal.Exists(predicate);
-        }
+        //public bool Exists(IPredicate predicate)
+        //{
+        //    return dal.Exists(predicate);
+        //}
         public bool Exists(string sql = null, string where = null)
         {
             return dal.Exists(sql, where);
@@ -133,34 +133,34 @@ namespace Test.BLL
         //{
         //    return dal.Where(predicate, sort);
         //}
-        //public IEnumerable<Users> Where(string where, string orderBy = null)
-        //{
-        //    return dal.Where(where, orderBy);
-        //}
-        //public IEnumerable<Users> Where(string where, string orderBy, int pageIndex, int pageSize)
-        //{
-        //    return dal.Where(where, orderBy, pageIndex, pageSize);
-        //}
+        public IEnumerable<Users> Where(string where, string orderBy = null)
+        {
+            return dal.Where(where, orderBy);
+        }
+        public IEnumerable<Users> Where(string where, string orderBy, int pageIndex, int pageSize)
+        {
+            return dal.Where(where, orderBy, pageIndex, pageSize);
+        }
         #endregion
 
         #region SQL Query 针对多表联合查询
 
-        //public IEnumerable<K> Query<K>(string sql, int? timeout = null, bool buffered = true) where K : class
-        //{
-        //    return dal.Query<K>(sql, timeout, buffered);
-        //}
-        //public IEnumerable<K> Query<K>(string sql, string orderBy, int pageIndex, int pageSize, int? timeout = null, bool buffered = true) where K : class
-        //{
-        //    return dal.Query<K>(sql, orderBy, pageIndex, pageSize, timeout, buffered);
-        //}
-        //public IEnumerable<dynamic> Query(string sql, int? timeout = null, bool buffered = true)
-        //{
-        //    return dal.Query(sql, timeout, buffered);
-        //}
-        //public IEnumerable<dynamic> Query(string sql, string orderBy, int pageIndex, int pageSize, int? timeout = null, bool buffered = true)
-        //{
-        //    return dal.Query(sql, orderBy, pageIndex, pageSize, timeout, buffered);
-        //}
+        public IEnumerable<K> Query<K>(string sql, int? timeout = null, bool buffered = true) where K : class
+        {
+            return dal.Query<K>(sql, timeout, buffered);
+        }
+        public IEnumerable<K> Query<K>(string sql, string orderBy, int pageIndex, int pageSize, int? timeout = null, bool buffered = true) where K : class
+        {
+            return dal.Query<K>(sql, orderBy, pageIndex, pageSize, timeout, buffered);
+        }
+        public IEnumerable<dynamic> Query(string sql, int? timeout = null, bool buffered = true)
+        {
+            return dal.Query(sql, timeout, buffered);
+        }
+        public IEnumerable<dynamic> Query(string sql, string orderBy, int pageIndex, int pageSize, int? timeout = null, bool buffered = true)
+        {
+            return dal.Query(sql, orderBy, pageIndex, pageSize, timeout, buffered);
+        }
 
         public IEnumerable<Users> GetUsers()
         {
