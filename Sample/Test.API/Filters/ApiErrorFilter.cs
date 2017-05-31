@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web;
+using System.Net.Http;
 using System.Web.Http.Filters;
 using Test.Entity;
 using Test.API.Models;
 
 namespace Test.API.Filters
 {
-    public class ApiErrorFilter : System.Web.Http.Filters.ExceptionFilterAttribute
+    public class ApiErrorFilter : ExceptionFilterAttribute
     {
         public override void OnException(System.Web.Http.Filters.HttpActionExecutedContext actionExecutedContext)
         {

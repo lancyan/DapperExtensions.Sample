@@ -7,11 +7,13 @@ D:\我的工作\DapperExtensions\Sample\Test.Entity\bin\Debug\Test.Entity.dll
 D:\我的工作\DapperExtensions\Sample\Test.Entity\bin\Debug\Test.Entity.pdb
 D:\我的工作\DapperExtensions\Sample\Test.Entity\obj\Debug\Test.Entity.dll
 D:\我的工作\DapperExtensions\Sample\Test.Entity\obj\Debug\Test.Entity.pdb
-E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Entity\bin\Debug\Test.Entity.dll
-E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Entity\bin\Debug\Test.Entity.pdb
-E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Entity\obj\Debug\Test.Entity.dll
-E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Entity\obj\Debug\Test.Entity.pdb
 D:\Projects\DapperExtensions.Sample\Sample\Test.Entity\bin\Debug\Test.Entity.dll
 D:\Projects\DapperExtensions.Sample\Sample\Test.Entity\bin\Debug\Test.Entity.pdb
 D:\Projects\DapperExtensions.Sample\Sample\Test.Entity\obj\Debug\Test.Entity.dll
 D:\Projects\DapperExtensions.Sample\Sample\Test.Entity\obj\Debug\Test.Entity.pdb
+E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Entity\bin\Debug\Test.Entity.dll
+E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Entity\bin\Debug\Test.Entity.pdb
+E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Entity\bin\Debug\Newtonsoft.Json.dll
+E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Entity\bin\Debug\Newtonsoft.Json.xml
+E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Entity\obj\Debug\Test.Entity.dll
+E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Entity\obj\Debug\Test.Entity.pdb

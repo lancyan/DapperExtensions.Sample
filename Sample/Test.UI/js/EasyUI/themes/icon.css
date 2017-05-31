@@ -1,0 +1,187 @@
+.icon{ 
+    background:url(/images/tabicons.png) no-repeat;
+    width:18px; 
+    line-height:18px; 
+    display:inline-block;
+}
+
+
+.icon-add {
+    background: url('/images/tabicons.png') no-repeat -20px 0px;
+    width: 18px;
+    height: 18px;
+}
+.icon-add{
+	background:url('icons/edit_add.png') no-repeat center center;
+}
+.icon-blank{
+	background:url('icons/blank.gif') no-repeat center center;
+}
+.icon-back{
+	background:url('icons/back.png') no-repeat center center;
+}
+.icon-cry{
+    background: url('/images/tabicons.png') no-repeat -260px -380px;
+    width: 16px;
+	height: 16px;
+}
+.icon-clear{
+	background:url('icons/clear.png') no-repeat center center;
+}
+.icon-cancel{
+	background:url('icons/cancel.png') no-repeat center center;
+}
+.icon-cut{
+	background:url('icons/cut.png') no-repeat center center;
+}
+.icon-collapse{ 
+    background: url('/images/tabicons.png') no-repeat -260px -500px;
+	width: 19px;
+	height: 15px;
+}
+.icon-del {
+    background: url('/images/tabicons.png') no-repeat -140px -120px;
+    width: 18px;
+    height: 18px;
+}
+.icon-database {
+    background: url('/images/tabicons.png') no-repeat -20px -140px;
+    width: 18px;
+    height: 18px;
+}
+.icon-edit {
+    background: url('/images/tabicons.png') no-repeat -380px -320px;
+    width: 18px;
+    height: 18px;
+}
+.icon-expand{ 
+    background: url('/images/tabicons.png') no-repeat -239px -501px;
+	width: 19px;
+	height: 14px;
+}
+.icon-edit{
+	background:url('icons/pencil.png') no-repeat center center;
+}
+.icon-filter{
+	background:url('icons/filter.png') no-repeat center center;
+}
+.icon-help{
+	background:url('icons/help.png') no-repeat center center;
+}
+.ico-house {
+    width: 20px;
+    height: 20px;
+    background: url('/images/tabicons.png') no-repeat -198px -219px;
+}
+.icon-log {
+    background: url('/images/tabicons.png') no-repeat -380px -80px;
+    width: 18px;
+    height: 18px;
+}
+.icon-lock{
+	background:url('icons/lock.png') no-repeat center center;
+}
+.icon-man{
+	background:url('icons/man.png') no-repeat center center;
+}
+.icon-magic {
+    background: url('/images/tabicons.png') no-repeat 0px -500px;
+    width: 18px;
+    height: 18px;
+}
+.icon-more{
+	background:url('icons/more.png') no-repeat center center;
+}
+.icon-no{
+	background:url('icons/no.png') no-repeat center center;
+}
+.icon-nav {
+    background: url('/images/tabicons.png') no-repeat -100px -20px;
+    width: 18px;
+    height: 18px;
+}
+.icon-ok{
+	background:url('icons/ok.png') no-repeat center center;
+}
+.ico-person {
+    width: 20px;
+    height: 20px;
+    background: url('/images/tabicons.png') no-repeat -99px -478px;
+}
+.icon-print{
+	background:url('icons/print.png') no-repeat center center;
+}
+.icon-role {
+    background: url('/images/tabicons.png') no-repeat -360px -200px;
+    width: 18px;
+    height: 18px;
+}
+.icon-redo{
+	background:url('icons/redo.png') no-repeat center center;
+}
+.icon-reload{
+	background:url('icons/reload.png') no-repeat center center;
+}
+.icon-remove{
+	background:url('icons/edit_remove.png') no-repeat center center;
+}
+.icon-save{
+	background:url('icons/filesave.png') no-repeat center center;
+}
+.icon-search{
+	background:url('icons/search.png') no-repeat center center;
+}
+.icon-smile{
+    background: url('/images/tabicons.png') no-repeat -240px -380px;
+	width: 16px;
+	height: 16px;
+}
+.icon-sum{
+	background:url('icons/sum.png') no-repeat center center;
+}
+.icon-sys {
+    background: url('/images/tabicons.png') no-repeat 0px -200px;
+    width: 18px;
+    height: 18px;
+}
+.icon-set {
+    background: url('/images/tabicons.png') no-repeat -380px -200px;
+    width: 18px;
+    height: 18px;
+}
+.icon-tip{
+	background:url('icons/tip.png') no-repeat center center;
+}
+.icon-undo{
+	background:url('icons/undo.png') no-repeat center center;
+}
+.icon-users {
+    background: url('/images/tabicons.png') no-repeat -100px -480px;
+    width: 18px;
+    height: 18px;
+}
+
+.icon-mini-add{
+	background:url('icons/mini_add.png') no-repeat center center;
+}
+.icon-mini-edit{
+	background:url('icons/mini_edit.png') no-repeat center center;
+}
+.icon-mini-refresh{
+	background:url('icons/mini_refresh.png') no-repeat center center;
+}
+.icon-large-picture{
+	background:url('icons/large_picture.png') no-repeat center center;
+}
+.icon-large-clipart{
+	background:url('icons/large_clipart.png') no-repeat center center;
+}
+.icon-large-shapes{
+	background:url('icons/large_shapes.png') no-repeat center center;
+}
+.icon-large-smartart{
+	background:url('icons/large_smartart.png') no-repeat center center;
+}
+.icon-large-chart{
+	background:url('icons/large_chart.png') no-repeat center center;
+}

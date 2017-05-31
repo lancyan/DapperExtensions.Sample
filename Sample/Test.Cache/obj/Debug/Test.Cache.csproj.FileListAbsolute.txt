@@ -46,3 +46,4 @@ E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Ca
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Cache\bin\Debug\Enyim.Caching.xml
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Cache\obj\Debug\Test.Cache.dll
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Cache\obj\Debug\Test.Cache.pdb
+E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Cache\obj\Debug\Test.Cache.csprojResolveAssemblyReference.cache

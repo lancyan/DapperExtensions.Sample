@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<input id="hidRoleName" type="hidden" value="@ViewData["Roles"]" />
+
+<ul id="tree"></ul>
+
+
+<script type="text/javascript">
+
+    var roles = document.getElementById("hidRoleName").value;
+    $(function () {
+        $.ajaxSetup({ cache: false });
+        var id = queryString("roleId");
+        if (id) {
+            initTree(id);
+        }
+        else {
+            initTree(roles);
+        }
+    });
+
+    function initTree(roleId) {
+        $.ajax({
+            type: "get",
+            url: "/Rights/GetRights",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: { roleId: roleId },
+            success: function (res) {
+                var data = typeof res == "string" ? eval('(' + res + ')') : res;
+                $('#tree').tree({
+                    data: data,
+                    checkbox: true,
+                    cascadeCheck: false
+                });
+
+            },
+            error: function (xmlReq, err, c) {
+                alert("error:" + err);
+            }
+        });
+    }
+
+
+    function btnClose() {
+        $('#dlg').dialog('close');
+    }
+
+
+
+</script>
+

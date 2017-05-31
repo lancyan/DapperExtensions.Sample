@@ -178,11 +178,17 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\Test\HomeController.cs" />
+    <Compile Include="Controllers\Test\MenusController.cs" />
+    <Compile Include="Controllers\Test\RightsController.cs" />
+    <Compile Include="Controllers\Test\RolesController.cs" />
     <Compile Include="Controllers\Test\UsersController.cs" />
     <Compile Include="Filters\ApiActionFilter.cs" />
     <Compile Include="Filters\ApiAuthenticationFilter.cs" />
     <Compile Include="Filters\ApiErrorFilter.cs" />
     <Compile Include="Filters\ApiSQLInjectFilter.cs" />
+    <Compile Include="Filters\NoLogAttribute.cs" />
+    <Compile Include="Filters\OperateTrackAttribute.cs" />
+    <Compile Include="Filters\WepApiActionLog.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

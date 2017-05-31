@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<input id="Hidden1" name="Id" type="hidden" />
+
+<table class="myTable" style="width: 100%; border: solid 1px #0094ff; border-collapse: collapse;">
+
+    <tr>
+        <td class="rightTxt">角色名称</td>
+        <td class="leftTxt"><input id="Text1" type="text" name="Name" /> </td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td class="rightTxt">角色编码</td>
+        <td class="leftTxt"><input id="Text2" type="text" name="Code" /> </td>
+        <td>&nbsp;</td>
+    </tr>
+
+     <tr>
+        <td class="rightTxt">&nbsp; 权限</td>
+        <td  class="leftTxt">
+                <input id="menuTree"  type="text" style="width:200px;" />
+        </td>
+     </tr>
+    <tr>
+        <td></td>
+        <td class="leftTxt">
+            <input id="btnAdd" type="button" name="add" class="button1" value="确定" onclick="btnConfirm()" />
+        </td>
+        <td></td>
+    </tr>
+</table>
+
+
+
+<script type="text/javascript">
+
+    $.ajaxSetup({ cache: false });
+
+    $(function () {
+
+        $('#menuTree').combotree({ required: true, multiple: true, cascadeCheck: false });
+
+        var id = queryString("id") || 0;
+        if (id) {
+            $.ajax({
+                url: "/roles/GetRole",
+                type: "GET",
+                data: { id: id },
+                success: function (data) {
+                    deserialize(data);
+                }
+            });
+          
+          
+            $.ajax({
+                type: "get",
+                url: "/Rights/GetRights",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: {roleId:  id },
+                success: function (res) {
+                    var data = typeof res == "string" ? eval('(' + res + ')') : res;
+                    $('#menuTree').combotree('loadData', data);
+                },
+                error: function (xmlReq, err, c) {
+                    alert("error:" + err);
+                }
+            });
+        }
+
+
+
+    });
+
+
+    function btnConfirm() {
+        var userName = document.getElementById("Text1").value.trim();
+        if (userName.length == 0) {
+            alert("用户名不能为空")
+            return;
+        }
+        var m = $('#menuTree').combotree('getValues').length == 0 ? "" : $('#menuTree').combotree('getValues').join(",");
+
+        var where = serialize(document, { menuIds: m });
+       
+        $.ajax({
+            url: "/Roles/EditRole",
+            type: "Post",
+            contentType: 'application/json',
+            dataType: 'json',
+            data: where,
+            success: function (data) {
+                if (data) {
+                    alert("成功", function () {
+                        window.location.href = "/Roles/index";
+                    });
+                }
+                else {
+                    alert("失败");
+                }
+            }
+        });
+
+    }
+
+</script>
+

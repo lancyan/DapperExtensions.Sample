@@ -1,0 +1,179 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+ 
+ 
+
+
+<div style="margin-top:10px">
+    <select id="Select1"></select>
+    <input id="Text1" type="text" />
+    <input id="btnSearch" type="button" class="button1" value="搜索" onclick="return btnSearch()" />
+    <input id="btnAdd" type="button" class="button1" value="添加" onclick="btnAdd()" />
+</div>
+
+<div id="divTab" style="margin-top:10px">
+    <table id="tabUser" style="width: 100%; border: solid 1px #0094ff; border-collapse: collapse;" class="customTable">
+        <thead>
+            <tr>
+                <th><input id="chxAll" type="checkbox" onclick="chxCheckAll(this)" /> </th>
+                <th bind="ID">编号</th>
+                <th bind="UserName">用户名</th>
+                <th bind="Sex">性别</th>
+                <th bind="Birthday">生日</th>
+                <th bind="Mobile">手机</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="display:none;">
+                <td><input type="checkbox" name="chxSelected" /></td>
+                <td>{ID}</td>
+                <td>{UserName}</td>
+                <td>({Sex}==0 ? "女":"男")</td>
+                <td>{Birthday}</td>
+                <td>{Mobile}</td>
+                <td><a href="/users/edit?id={ID}">编辑</a>&nbsp;<a href="javascript:void(0)" onclick="btnDelete('{ID}')">删除</a></td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+</div>
+
+<div style="font-size:14px;margin-top:10px;" id="divPage">
+    <div style="float:left;"> 共有 <span id="RecordCount">0</span> 条记录，当前第 <span id="CurrentPageIndex">1</span> 页，共 <span id="PageCount">0</span> 页</div>
+    <div style="float:right;">
+        <a id="btnFirst" href="javascript:void(0)" onclick="goFirst();">首页</a>
+        <a id="btnBack" href="javascript:void(0)" onclick="goBack();">上一页</a>
+        <a id="btnNext" href="javascript:void(0)" onclick="goNext();">下一页</a>
+        <a id="btnEnd" href="javascript:void(0)" onclick="goEnd();">尾页</a>
+        转到
+        <select id="SelectPage" name="select" onchange="gotoPage(this.selectedIndex);">
+            <option value="1">1</option>
+        </select>
+        页
+    </div>
+</div>
+
+
+
+<script  type="text/javascript">
+
+    
+    var myTableObj = new MyTable("tabUser", "Select1");
+
+    $(function () {
+
+        myTableObj.initTabTemplate();
+
+        btnSearch();
+
+    });
+ 
+
+    function btnSearch() {
+        pageIndex = 0;
+        initTable();
+        initCount();
+    }
+
+    function btnDelete(id) {
+        confirm("确定要删除该条数据吗？", function () {
+            var str = $.get("/users/Delete", { id: id }, function (data) {
+                if (data) {
+                    alert("删除成功");
+                    btnSearch();
+                }
+                else {
+                    alert("删除失败");
+                }
+            });
+        });
+    }
+    
+    function btnAdd() {
+        window.location.href = "/Users/edit";
+    }
+
+    function initCount() {
+        var where = getWhere();
+        $.ajax({
+            type: "get",
+            url: "/Users/GetCount",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: { where: where },
+            success: function (res) {
+                recordCount = res;
+                initPage();
+            },
+            error: function (xmlReq, err, c) {
+                alert("error:" + err);
+            }
+        });
+    }
+
+    function initTable() {
+        toggleLoading();
+        var where = getWhere();
+        $.ajax({
+            type: "get",
+            url: "/Users/GetList",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: { where: where, pageIndex: pageIndex, pageSize: pageSize, orderBy: myTableObj.orderBy },
+            success: function (res) {
+                if (res) {
+                    var data = typeof res == 'string' ? eval('(' + res + ')') : res;
+                    myTableObj.createTable(data);
+                    toggleLoading();
+                }
+            },
+            error: function (xmlReq, err, c) {
+                alert("error:" + err, function () {
+                    toggleLoading();
+                });
+            }
+        });
+    }
+
+    function chxCheckAll(o) {
+        var items = document.getElementsByName("chxSelected");
+        for (var i = 0, len = items.length; i < len; i++) {
+            items[i].checked = o.checked;
+        }
+        return false;
+    }
+
+    function getWhere() {
+        var t1 = document.getElementById("Select1").value;
+        var t2 = document.getElementById("Text1").value.trim();
+        if (t2.length > 0)
+            return '{' + t1 + ':"' + t2 + '"}';
+        else
+            return "";
+    }
+   
+    function getNextNode(o, nodeName) {
+        var p = o.parentNode;
+        var nextNode = p.nextSibling;
+        while (!nextNode && nextNode.nodeName != nodeName) {
+            nextNode = nextNode.nextSibling;
+        }
+        return nextNode;
+    }
+
+   
+
+
+
+</script>
+
+ 
+
+
+
+

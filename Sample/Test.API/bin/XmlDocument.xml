@@ -481,25 +481,149 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
-        <member name="T:API.Controllers.UsersController">
+        <member name="M:Test.API.Controllers.Test.HomeController.GetToken(System.String)">
+            <summary>
+            获取token
+            </summary>
+            <param name="appId">appId</param>
+            <returns>token</returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.MenusController.GetList(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            获取菜单列表
+            </summary>
+            <param name="user">用户对象</param>
+            <param name="pageIndex"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.MenusController.GetMenus(System.String)">
+            <summary>
+            通过角色获取菜单
+            </summary>
+            <param name="roleId">角色编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.MenusController.GetLeftMenus(System.String)">
+            <summary>
+            通过角色编号获取左菜单
+            </summary>
+            <param name="roleId">角色编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.MenusController.Get(System.Int32)">
+            <summary>
+            获取菜单
+            </summary>
+            <param name="id">菜单编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.MenusController.Delete(System.Int32)">
+            <summary>
+            删除菜单
+            </summary>
+            <param name="id">菜单编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.MenusController.Post(Test.Entity.SYS.Menus)">
+            <summary>
+            Post提交一个Menus对象
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.RightsController.GetRights(System.String)">
+            <summary>
+            获取角色下的所有权限
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.RightsController.EditRight(System.Object)">
+            <summary>
+            编辑权限
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.RolesController.GetList(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            获取菜单列表
+            </summary>
+            <param name="user">用户对象</param>
+            <param name="pageIndex"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.RolesController.GetCount(System.String)">
+            <summary>
+            获取数量
+            </summary>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.RolesController.Get(System.Int32)">
+            <summary>
+            获取角色
+            </summary>
+            <param name="id">角色编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.RolesController.GetUserRoles(System.String)">
+            <summary>
+            获取用户的角色
+            </summary>
+            <param name="userId">userId</param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.RolesController.GetRoles">
+            <summary>
+            获取角色
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.RolesController.Post(System.Object)">
+            <summary>
+            Post提交一个Roles对象
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.RolesController.Delete(System.Int32)">
+            <summary>
+            删除角色
+            </summary>
+            <param name="id">角色编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.RolesController.IsPermission(System.Object)">
+            <summary>
+            判断权限
+            </summary>
+            <param name="roleId">roleId</param>
+            <param name="controllerName">controllerName</param>
+            <param name="actionName">actionName</param>
+            <returns></returns>
+        </member>
+        <member name="T:Test.API.Controllers.Test.UsersController">
             <summary>
             用户api列表
             </summary>
         </member>
-        <member name="M:API.Controllers.UsersController.Get(System.Int32)">
+        <member name="M:Test.API.Controllers.Test.UsersController.Get(System.Int32)">
             <summary>
             获取一个用户通过id
             </summary>
             <param name="id">id</param>
             <returns>User对象</returns>
         </member>
-        <member name="M:API.Controllers.UsersController.GetUserName">
+        <member name="M:Test.API.Controllers.Test.UsersController.UserLogin(System.Object)">
             <summary>
             获取用户名
             </summary>
             <returns></returns>
         </member>
-        <member name="M:API.Controllers.UsersController.GetList(Test.Entity.Users,System.Int32,System.Int32)">
+        <member name="M:Test.API.Controllers.Test.UsersController.GetList(System.String,System.Int32,System.Int32,System.String)">
             <summary>
             获取用户列表
             </summary>
@@ -508,48 +632,51 @@
             <param name="pageSize"></param>
             <returns></returns>
         </member>
-        <member name="M:API.Controllers.UsersController.GetCount(System.String)">
+        <member name="M:Test.API.Controllers.Test.UsersController.GetCount(System.String)">
             <summary>
             获取数量
             </summary>
             <param name="userName"></param>
             <returns></returns>
         </member>
-        <member name="M:API.Controllers.UsersController.GetUsers">
+        <member name="M:Test.API.Controllers.Test.UsersController.GetUsers">
             <summary>
             获取所有的用户信息
             </summary>
             <returns></returns>
         </member>
-        <member name="M:API.Controllers.UsersController.GetGoodsByUser(System.String)">
-            <summary>
-            获取用户购买的所有商品信息
-            </summary>
-            <param name="userId">用户编号</param>
-            <returns></returns>
-        </member>
-        <member name="M:API.Controllers.UsersController.GetBillsByUser(System.String)">
-            <summary>
-            获取用户购买的所有商品信息和用户信息,返回一个自定义类型
-            </summary>
-            <param name="userId">用户编号</param>
-            <returns></returns>
-        </member>
-        <member name="M:API.Controllers.UsersController.Post(Test.Entity.Users)">
+        <member name="M:Test.API.Controllers.Test.UsersController.Post(Test.Entity.SYS.Users)">
             <summary>
             Post提交一个User对象
             </summary>
             <param name="entity"></param>
             <returns></returns>
         </member>
-        <member name="M:API.Controllers.UsersController.Delete(System.Int32)">
+        <member name="M:Test.API.Controllers.Test.UsersController.UpdatePwd(System.Object)">
+            <summary>
+            修改密码
+            </summary>
+            <param name="id">用户id</param>
+            <param name="pwd1">原密码</param>
+            <param name="pwd2">修改后的密码</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.UsersController.Put(System.Int32,Test.Entity.SYS.Users)">
+            <summary>
+            修改用户信息
+            </summary>
+            <param name="id">用户编号</param>
+            <param name="entity">用户实体类</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:Test.API.Controllers.Test.UsersController.Delete(System.Int32)">
             <summary>
             删除一个User通过id
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:API.Controllers.UsersController.GetTime(System.Int32)">
+        <member name="M:Test.API.Controllers.Test.UsersController.GetTime(System.Int32)">
             <summary>
             获取时间
             </summary>
@@ -566,6 +693,46 @@
             Occurs before the action method is invoked.  
             </summary>  
             <param name="actionContext">The action context</param>  
+        </member>
+        <member name="M:Test.API.Filters.OperateTrackAttribute.#ctor(System.String)">
+            <summary>
+            初始化时填入类的说明
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Test.API.Filters.OperateTrackAttribute.OnActionExecutedAsync(System.Web.Http.Filters.HttpActionExecutedContext,System.Threading.CancellationToken)">
+            <summary>
+            在请求执行完后 记录请求的数据以及返回数据
+            </summary>
+            <param name="actionExecutedContext"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Filters.OperateTrackAttribute.GetRequestValues(System.Web.Http.Filters.HttpActionExecutedContext)">
+            <summary>
+            读取request 的提交内容
+            </summary>
+            <param name="actionExecutedContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Filters.OperateTrackAttribute.GetResponseValues(System.Web.Http.Filters.HttpActionExecutedContext)">
+            <summary>
+            读取action返回的result
+            </summary>
+            <param name="actionExecutedContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Test.API.Filters.OperateTrackAttribute.SkipLogging(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            判断类和方法头上的特性是否要进行Action拦截
+            </summary>
+            <param name="actionContext"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Test.API.Filters.OperateTrackAttribute.msg">
+            <summary>
+            自定义参数
+            </summary>
         </member>
     </members>
 </doc>

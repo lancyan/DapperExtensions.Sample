@@ -1,0 +1,259 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<input id="hiddenID" name="Id" type="hidden" value="0" />
+<div id="divTab">
+    <table id="tab" style="width: 100%;border:solid 1px #6CD0FF; border-collapse:collapse;">
+        <tr>
+            <td class="rightTxt">&nbsp;父菜单</td>
+            <td class="leftTxt">
+                <input name="ParentId" id="txtParentId" type="hidden" readonly />
+                <input name="ParentName" id="txtParentName" type="text" readonly />
+                <span style="color:red;"></span>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="rightTxt">&nbsp;名称</td>
+            <td class="leftTxt">
+                <input name="Name" id="Text2" type="text" />
+                <span style="color:red;"></span>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="rightTxt">&nbsp;链接</td>
+            <td class="leftTxt">
+                <input name="Url" id="txtUrl" type="text" /><span style="color:red;"></span>
+
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="rightTxt">&nbsp;控制器</td>
+            <td class="leftTxt">
+                @*<input name="RightCode" id="Text1" type="text" /><span style="color:red;"></span>*@
+                <select id="Select3" name="Code" onchange="selectedController(this.value)">
+                    <option value=""></option>
+                </select>
+            </td>
+            <td></td>
+        </tr>
+         <tr>
+            <td class="rightTxt">&nbsp;方法</td>
+            <td class="leftTxt">
+                @*<input name="RightCode" id="Text1" type="text" /><span style="color:red;"></span>*@
+                <select id="Select4" name="Action">
+                    <option value=""></option>
+                </select>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="rightTxt">&nbsp;图标</td>
+            <td class="leftTxt">
+                @*<input name="Ico" id="Text4" type="text" />*@
+                 <select id="txtIco" class="easyui-combo" name="Ico" style="width:150px;" data-options="editable:false">
+                    <option value="icon-sys">icon-sys</option>
+                    <option value="icon-set">icon-set</option>
+                    <option value="icon-add">icon-add</option>
+                    <option value="icon-nav">icon-nav</option>
+                    <option value="icon-users">icon-users</option>
+                    <option value="icon-role">icon-role</option>
+                    <option value="icon-log">icon-log</option>
+                    <option value="icon-del">icon-del</option>
+                    <option value="icon-edit">icon-edit</option>
+                    <option value="icon-magic">icon-magic</option>
+                    <option value="icon-database">icon-database</option>
+                    <option value="icon-expand">icon-expand</option>
+                    <option value="icon-collapse">icon-collapse</option>
+                    <option value="icon-smile">icon-smile</option>
+                    <option value="icon-cry">icon-cry</option>
+                </select>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="rightTxt">&nbsp;排序</td>
+            <td class="leftTxt">
+                <input name="Sort" id="txtSort" type="text" style="ime-mode:disabled" /><span style="color:red;"></span>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="rightTxt">&nbsp;类型</td>
+            <td class="leftTxt">
+
+                <select id="Select2" name="Type">
+                    <option value="0">模块</option>
+                    <option value="1">功能</option>
+                     <option value="2">菜单</option>
+                   
+                </select>
+                <span style="color:red;"></span>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="rightTxt">&nbsp;状态</td>
+            <td class="leftTxt">
+                <select id="Select1" name="Status">
+                    <option value="1">显示</option>
+                    <option value="0">不显示</option>
+                </select>
+                <span style="color:red;"></span>
+
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td class="leftTxt">
+                <input id="Button1" type="button" class="button1" value="确定" onclick="btnSubmit()" />
+
+            </td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+    var objs = {};
+
+    $.ajaxSetup({ cache: false });
+
+    function btnSubmit() {
+        var where = serialize();
+        var txtSort = document.getElementById("txtSort");
+        var txtUrl = document.getElementById("txtUrl");
+        var sort = txtSort.value.trim();
+        var url = txtUrl.value.trim();
+        if (sort.length == 0) {
+            sort = 0;
+        }
+        if (url.length == 0) {
+            setTDMessage(txtUrl, "链接地址不能为空");
+            return;
+        }
+        else if (url.substr(0, 1) != "/")
+        {
+            setTDMessage(txtUrl, "链接地址必须/开头");
+            return;
+        }
+
+        if (!(/^\d+$/.test(sort)) || sort < 0) {
+            setTDMessage(txtSort, "排序只能是正整数");
+            return;
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/Menus/EditMenu",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: where,
+            success: function (res) {
+                if (res) {
+                    alert("保存成功");
+                }
+                else {
+                    alert("保存失败");
+                }
+            },
+            error: function (xmlReq, err, c) {
+                alert("error:" + err);
+            }
+        });
+    }
+
+
+    function selectedController(controllerName) {
+        initSelect("Select4", objs[controllerName]);
+    }
+
+    function initActions() {
+        $.ajax({
+            type: "get",
+            url: "/Menus/GetControllers",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: {},
+            success: function (res) {
+                objs = typeof res == "string" ? eval('(' + res + ')') : res;
+                var keyArr = [];
+                for (var item in objs)
+                {
+                    keyArr.push(item);
+                }
+                initSelect("Select3", keyArr);
+                selectedController(keyArr[0]);
+              
+                initMenus();
+               
+            },
+            error: function (xmlReq, err, c) {
+                alert("error:" + err);
+            }
+        });
+    }
+    function initMenus() {
+        var id = queryString("Id");
+        if (id) {
+            //$.ajax({
+            //    type: "get",
+            //    url: "/Rights/GetRights",
+            //    contentType: "application/json;charset=utf-8",
+            //    dataType: "json",
+            //    data: { id: id },
+            //    success: function (res) {
+            //        var data = typeof res == "string" ? eval('(' + res + ')') : res;
+            //        initSelect("Select3", data);
+            //    },
+            //    error: function (xmlReq, err, c) {
+            //        alert("error:" + err);
+            //    }
+            //});
+
+            $.ajax({
+                type: "get",
+                url: "/Menus/GetMenu",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: { id: id  },
+                success: function (res) {
+                    var data = typeof res == "string" ? eval('(' + res + ')') : res;
+                    deserialize(data);
+                },
+                error: function (xmlReq, err, c) {
+                    alert("error:" + err);
+                }
+            });
+        }
+    }
+
+    $(function () {
+        //$('#txtIco').combobox({
+        //    formatter: function (p) {
+        //        return "<div class=\"" + p.value + "\" style=\"position: absolute;width: 20px;height: 20px;top: 50%;margin-top: -10px;\"></div><div style=\"position: absolute;width: 20px;height: 20px;line-height: 20px;left: 30px;top: 50%;margin-top: -10px;\">" + p.value + "</div>";
+        //    }
+        //});
+        
+        var parentId = queryString("parentId");
+        if (parentId) {
+            document.getElementById("txtParentId").value = parentId;
+        }
+        var parentName = queryString("parentName");
+        if (parentName) {
+            document.getElementById("txtParentName").value = parentName;
+        }
+        initActions();
+   
+      
+    });
+</script>

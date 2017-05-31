@@ -38,7 +38,7 @@ namespace Test.DAL.Base
         #region
         dynamic Insert(T obj);
 
-        void Insert(params T[] objs);
+        void Inserts(IEnumerable<T> objs);
 
         #endregion
 

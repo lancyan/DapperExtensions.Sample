@@ -12,31 +12,56 @@ namespace Test.Utility
 {
     public static class SignHelper
     {
-        public const string PlatformId = "platformId";
-        public const string Token = "token";
-        public const string Sign = "sign";
+        public const string appId = "appId";
+        public const string appKey = "appKey";
+        public const string appSecret = "appSecret";
 
+        public const string userId = "userId";
+        public const string token = "token";
+        public const string sign = "sign";
+        public static string[] confuseArr = new string[] { "!#%&(", "@$^*&", "&*(%)" };
+        //appKey Arrays
+        public static string[] keyArr = new string[] { "687D7C5DD80E4F0588D5FC2327DE248A", "A35D05A7E929497BA325EA2029C04DBC", "83EF032868A84459B98B987E5686F9AD" };
+        //appSecret Arrays
+        public static string[] valueArr = new string[] { "D24E0AEF6ED947359EE92E068E38F518", "4AF86EBAAA3D420ABB48B4103B1C3531", "4336444F21AA4DB48EE51368BB5C1092" };
+
+       
+
+       
+
+        static SignHelper()
+        {
+            
+        }
 
         public static bool IsPassVerify(NameValueCollection dict1, Dictionary<string, object> dict2)
         {
             bool re = false;
-            string platformId = GetSign(SignHelper.PlatformId, dict1, dict2);
-            string token = GetSign(SignHelper.Token, dict1, dict2);
-            //string platformValue = GetSign(SignHelper.PlatformId, nvc, dict);
-            string token2 = "";
-            switch (platformId)
-            {
-                case "1":
-                    token2 = EncryptHelper.Md5(Platform.Find(platformId) + "!#%&(" + DateTime.Now.ToString("yyyy/M/d"), 32, System.Text.Encoding.UTF8);
-                    re = token2.Equals(token, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(token);
-                    break;
-                case "2":
-                    token2 = EncryptHelper.Md5(Platform.Find(platformId) + "@$^*" + DateTime.Now.ToString("yyyy/M/d"), 32, System.Text.Encoding.UTF8);
-                    re = token2.Equals(token, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(token);
-                    break;
+            string appId = GetSign(SignHelper.appId, dict1, dict2);
+            string clientToken = GetSign(SignHelper.token, dict1, dict2);
+            string serverToken = "";
 
+            switch (appId)
+            {
+                case "687D7C5DD80E4F0588D5FC2327DE248A":
+                    serverToken = CreateToken(valueArr[0], confuseArr[0], DateTime.Now.ToString("yyyy/MM/d/HH"));
+                    re = !string.IsNullOrEmpty(clientToken) && serverToken.Equals(clientToken, StringComparison.OrdinalIgnoreCase);
+                    break;
+                case "A35D05A7E929497BA325EA2029C04DBC":
+                    serverToken = CreateToken(valueArr[1], confuseArr[1], DateTime.Now.ToString("M/d/yyyy/HH"));
+                    re = !string.IsNullOrEmpty(clientToken) && serverToken.Equals(clientToken, StringComparison.OrdinalIgnoreCase);
+                    break;
+                case "83EF032868A84459B98B987E5686F9AD":
+                    serverToken = CreateToken(valueArr[2], confuseArr[2], DateTime.Now.ToString("d/M/yyyy/HH"));
+                    re = !string.IsNullOrEmpty(clientToken) && serverToken.Equals(clientToken, StringComparison.OrdinalIgnoreCase);
+                    break;
             }
             return re;
+        }
+
+        public static string CreateToken(string s1, string s2, string s3)
+        {
+            return EncryptHelper.Md5(string.Concat(s1, s2, s3), 32, System.Text.Encoding.UTF8);
         }
 
         private static string GetSign(string key, NameValueCollection dict1, Dictionary<string, object> dict2)
@@ -66,27 +91,9 @@ namespace Test.Utility
     }
 
 
-    public class Platform
-    {
-        public static Dictionary<string, string> dict = new Dictionary<string, string>();
 
 
-        static Platform()
-        {
-            dict.Add("1", "D24E0AEF6ED947359EE92E068E38F518");
-            dict.Add("2", "4AF86EBAAA3D420ABB48B4103B1C3531");
-        }
+  
 
-        public static string Find(string id)
-        {
-            return dict[id];
-        }
-
-    }
-
-    //public class PlatformItem
-    //{
-    //    public string id;
-    //    public string hash;
-    //}
+    
 }

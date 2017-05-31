@@ -36,3 +36,4 @@ E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Ut
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Utility\bin\Debug\zh-Hans\System.Web.Http.WebHost.resources.dll
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Utility\obj\Debug\Test.Utility.dll
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Utility\obj\Debug\Test.Utility.pdb
+E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.Utility\obj\Debug\Test.Utility.csprojResolveAssemblyReference.cache

@@ -10,11 +10,11 @@ namespace Test.API.Filters
 {
     public class AntiSQLInjectAttribute : FilterAttribute, IActionFilter
     {
-        public static string[] specialArr = { "'", "\"", ">", "<", "=", "||", "|", "&", "#", "%", "/", "?", " or ", "select", "update", "insert", "delete", "declare", "exec", "drop", "create", "--" };
+        public static string[] specialArr = { "'", "\"", ">", "<", "=", "||", "|", "&", "#", "%", "/", "?", " and ", " or ", " union ", "select", "update", "insert", "delete", "declare", "exec", "drop", "create", "--" };
 
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            
+
         }
 
         public void OnActionExecuting(ActionExecutingContext filterContext)

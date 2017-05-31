@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+
+
+<ul id="tree">菜单列表</ul>
+<div id="dlg" class="easyui-dialog" style="width:500px;height:auto;min-width:300px;padding:10px;" data-options="closed:true">
+    The dialog content.
+</div>
+
+<div id="mm" class="easyui-menu" style="width:120px;">
+    <div onclick="btnAdd()" data-options="iconCls:'icon-add'">Add</div>
+    <div onclick="btnEdit()" data-options="iconCls:'icon-edit'">Edit</div>
+    <div onclick="btnDel()" data-options="iconCls:'icon-del'">Del</div>
+    <div onclick="btnBatchAdd()" data-options="iconCls:'icon-add'">BatchAdd</div>
+</div>
+
+
+
+<script language="javascript" type="text/javascript">
+
+
+
+    // <!CDATA[
+
+    $(function () {
+        $.ajaxSetup({ cache: false });
+        initTree();
+    });
+
+    function initTree() {
+        var roleId = 0;
+        $.ajax({
+            type: "post",
+            url: "/Menus/GetMenus",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: { roleId: roleId },
+            success: function (res) {
+                var data = typeof res == "string" ? eval('(' + res + ')') : res;
+                var obj = [{ id: 0, text: "菜单列表", iconCls: "ico-house", children: data }];
+                $('#tree').tree({
+                    data: obj,
+                    onDblClick: function (node) {
+                        btnEdit();
+                    },
+                    onContextMenu: function (e, node) {
+                        e.preventDefault();
+                        $('#tree').tree('select', node.target);
+                        $('#mm').menu('show', {
+                            left: e.pageX,
+                            top: e.pageY
+                        });
+                    }
+                });
+            },
+            error: function (xmlReq, err, c) {
+                alert("error:" + err);
+            }
+        });
+    }
+
+    function btnAdd() {
+        var node = $('#tree').tree('getSelected');
+        if (node) {
+            window.location.href = "/Menus/Edit?parentId=" + node.id + "&parentName=" + node.text;
+        }
+    }
+
+    function btnBatchAdd() {
+        var node = $('#tree').tree('getSelected');
+        if (node) {
+            $.ajax({
+                type: "post",
+                url: "/Menus/BatchAdd",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: "{ 'parentId': " + node.id + ", 'parentName': '" + node.text + "', 'code': '" + node.attributes.code + "' }",
+                //data: { parentId: node.id, parentName: node.text, code: node.attributes.code },
+                success: function (res) {
+                    var data = typeof res == "string" ? eval('(' + res + ')') : res;
+                    if (data) {
+                        alert("添加成功");
+                    }
+                },
+                error: function (xmlReq, err, c) {
+                    alert("error:" + err);
+                }
+            });
+        }
+    }
+
+    function btnEdit() {
+        var node = $('#tree').tree('getSelected');
+        if (node) {
+            window.location.href = "/Menus/Edit?id=" + node.id;
+        }
+    }
+
+    function btnDel() {
+        var node = $('#tree').tree('getSelected');
+        if (node) {
+            confirm("确定要删除该条数据吗？", function () {
+                $.ajax({
+                    type: "post",
+                    url: "/Menus/DeleteMenu",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    data: "{ 'id':" + node.id + " }",
+                    success: function (res) {
+                        var data = typeof res == "string" ? eval('(' + res + ')') : res;
+                        if (data) {
+                            alert("删除成功");
+                        }
+                    },
+                    error: function (xmlReq, err, c) {
+                        alert("error:" + err);
+                    }
+                });
+            });
+        }
+    }
+
+    </script>

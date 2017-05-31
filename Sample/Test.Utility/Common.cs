@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using System.Collections;
 
 
 
@@ -23,20 +24,22 @@ namespace Test.Utility
 {
     public static class Common
     {
+
+        private static readonly Hashtable hashDict = Hashtable.Synchronized(new Hashtable(10240));
+
+       
         /// <summary>
-        /// 序列化对象使用serviceStack高性能
+        /// 序列化对象成JSON字符串
         /// </summary>
         /// <param name="o">对象</param>
-        /// <returns></returns>
+        /// <returns>JSON字符串</returns>
         public static string Serialize(object o)
         {
             if (o != null)
             {
-
                 IsoDateTimeConverter dt = new IsoDateTimeConverter();
                 dt.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
-                string json = JsonConvert.SerializeObject(o, dt);
-                return json;
+                return JsonConvert.SerializeObject(o, dt);
             }
             else
             {
@@ -44,21 +47,27 @@ namespace Test.Utility
             }
         }
         /// <summary>
-        /// 反序列话字符串
+        /// 反序列化JSON字符串
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
         /// <param name="data">字符串</param>
         /// <returns>对象</returns>
         public static T Deserialize<T>(string data)
         {
-            if (!string.IsNullOrWhiteSpace(data))
+            try
             {
-                var obj = JsonConvert.DeserializeObject<T>(data);
-                return obj;
+                if (!string.IsNullOrWhiteSpace(data))
+                {
+                    return JsonConvert.DeserializeObject<T>(data);
+                }
+                else
+                {
+                    return default(T);
+                }
             }
-            else
+            catch
             {
-                return default(T);
+                throw;
             }
         }
 
@@ -83,7 +92,7 @@ namespace Test.Utility
                         if (type.Equals(typeof(DateTime)))
                         {
                             DateTime dt = Convert.ToDateTime(v);
-                            sb.Append(string.Format("{0}{1} between '{2}'  and  '{3}' and", prePN, pi.Name, dt.Date.ToString(), dt.AddDays(1).ToString()));
+                            sb.Append(string.Format("{0}{1} between '{2}'  and  '{3}' and ", prePN, pi.Name, dt.Date.ToString(), dt.AddDays(1).ToString()));
                         }
                         else if (type.IsValueType)
                         {
@@ -98,12 +107,14 @@ namespace Test.Utility
                 string tmpQuery = sb.ToString();
                 if (tmpQuery.EndsWith("and "))
                 {
-                    tmpQuery = tmpQuery.Substring(0, tmpQuery.Length - 4);
+                    tmpQuery = tmpQuery.Remove(tmpQuery.Length - 4, 4);
                 }
                 query = tmpQuery;
             }
             return query;
         }
+
+        static DateTime defaultDate = new DateTime(1900, 1, 1);
 
         private static bool JudgeDefault(Type type, object v)
         {
@@ -114,6 +125,13 @@ namespace Test.Utility
                 if (type.Name == "Nullable`1")//type.GetGenericTypeDefinition() == typeof(Nullable<>)
                 {
                     if (v == null)
+                    {
+                        isDefault = true;
+                    }
+                }
+                else if (type.Name == "DateTime")
+                {
+                    if (DateTime.MinValue.Equals(v) || defaultDate.Equals(v))
                     {
                         isDefault = true;
                     }
@@ -137,10 +155,75 @@ namespace Test.Utility
             return isDefault;
         }
 
+        public static string Where2Query<T>(string where)
+        {
+            var str = hashDict[where];
+            if (str != null)
+            {
+                return str.ToString();
+            }
+            else
+            {
+                string sql = "";
+                T obj = default(T);
+                try
+                {
+                    if (!string.IsNullOrWhiteSpace(where))
+                    {
+                        obj = Deserialize<T>(where);
+                        sql = GetQuerySQL<T>(obj);
+                        hashDict[where] = sql;
+                    }
+                }
+                catch
+                {
+                    throw;
+                }
+                return sql;
+            }
+        }
+
+        #region 将Base64编码的文本转换成普通文本
+        /// <summary>
+        /// 将Base64编码的文本转换成普通文本
+        /// </summary>
+        /// <param name="base64">Base64编码的文本</param>
+        /// <returns></returns>
+        public static string Base64ToString(string base64)
+        {
+            if (!string.IsNullOrWhiteSpace(base64))
+            {
+                char[] charBuffer = base64.ToCharArray();
+                byte[] bytes = Convert.FromBase64CharArray(charBuffer, 0, charBuffer.Length);
+                return Encoding.Default.GetString(bytes);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+        #endregion
+
+        #region 字符串转为base64字符串
+        public static string StringToBase64(string str)
+        {
+            if (!string.IsNullOrWhiteSpace(str))
+            {
+                byte[] b = Encoding.Default.GetBytes(str);
+                return Convert.ToBase64String(b);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+        #endregion
+
+
         public static string GetAttributeName(MemberInfo mi)
         {
-            DescriptionAttribute att = Attribute.GetCustomAttribute(mi, typeof(DescriptionAttribute)) as DescriptionAttribute;
-            return att != null ? att.Description : "";
+            AliasAttribute att = Attribute.GetCustomAttribute(mi, typeof(AliasAttribute)) as AliasAttribute;
+            return att != null ? att.Alias : "";
         }
 
         public static string GetQueryString<T>(T obj, bool ignoreDefault = true)
@@ -192,9 +275,9 @@ namespace Test.Utility
                 for (int i = 0, len = pis.Length; i < len; i++)
                 {
                     PropertyInfo pi = pis[i];
+                    Type type = pi.PropertyType;
                     string pn = pi.Name;
                     object v = pi.GetValue(obj);
-                    Type type = pi.PropertyType;
                     bool isDefault = JudgeDefault(type, v);
 
                     if (!isDefault || (isDefault && !ignoreDefault))
@@ -372,6 +455,7 @@ namespace Test.Utility
             }
             return nvc;
         }
+
         /// <summary>
         /// 获取字符串字节长度(中文双字节)
         /// </summary>
@@ -415,7 +499,6 @@ namespace Test.Utility
                     minutes = hours * 60 + minutes;
                     dateDiff = (minutes < 10 ? "0" + minutes : minutes.ToString()) + ":" + (seconds < 10 ? "0" + seconds : seconds.ToString());
                 }
-
             }
             catch
             {
@@ -431,9 +514,7 @@ namespace Test.Utility
         /// <returns></returns>
         public static string GetWebClientIP()
         {
-
             string userIP = "未获取用户IP";
-
             try
             {
                 if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Request == null || System.Web.HttpContext.Current.Request.ServerVariables == null)
@@ -475,6 +556,31 @@ namespace Test.Utility
 
         }
         #endregion
+
+        /// <summary>  
+        /// 时间戳转为C#格式时间  
+        /// </summary>  
+        /// <param name="timeStamp">Unix时间戳格式</param>  
+        /// <returns>C#格式时间</returns>  
+        public static DateTime GetTime(string timeStamp)
+        {
+            DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            long lTime = long.Parse(timeStamp + "0000000");
+            TimeSpan toNow = new TimeSpan(lTime);
+            return dtStart.Add(toNow);
+        }
+
+
+        /// <summary>  
+        /// DateTime时间格式转换为Unix时间戳格式  
+        /// </summary>  
+        /// <param name="time"> DateTime时间格式</param>  
+        /// <returns>Unix时间戳格式</returns>  
+        public static int ConvertDateTimeInt(DateTime time)
+        {
+            System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
+            return (int)(time - startTime).TotalSeconds;
+        }  
 
     }
 

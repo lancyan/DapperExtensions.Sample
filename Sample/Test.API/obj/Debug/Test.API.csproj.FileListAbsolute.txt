@@ -184,7 +184,6 @@ E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.AP
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.API\bin\System.Web.WebPages.Deployment.xml
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.API\bin\System.Web.WebPages.Razor.xml
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.API\bin\Test.DAL.pdb
-E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.API\bin\DapperExtensions.pdb
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.API\bin\Enyim.Caching.pdb
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.API\bin\Enyim.Caching.xml
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.API\bin\zh-Hans\System.Web.Helpers.resources.dll
@@ -252,3 +251,4 @@ E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.AP
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.API\bin\System.Web.Http.Tracing.xml
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.API\bin\zh-Hans\System.Web.Http.Tracing.resources.dll
 E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.API\bin\XmlDocument.xml
+E:\Develop\github\DapperExtensions.Sample\DapperExtensions.Sample\Sample\Test.API\bin\DapperExtensions.pdb

@@ -57,7 +57,7 @@ namespace Test.DAL.Base
                     throw new Exception("连接池为空");
                 }
                 var tlist = clist.Count() == 1 ? clist : clist.Where(p => p.State == state);
-                foreach (var item in tlist)
+                foreach (ConnectionItem item in tlist)
                 {
                     var cfg = new DapperExtensionsConfiguration(typeof(AutoClassMapper<>), new List<Assembly>(), item.dBase);
                     db.Add(new Database(item.Connection, new SqlGeneratorImpl(cfg)));
@@ -86,11 +86,11 @@ namespace Test.DAL.Base
         #region operator
 
         #region INSERT
-        public void Insert(params T[] objs)
+        public void Inserts(IEnumerable<T> objs)
         {
             using (var db = GetDB(1))
             {
-                db.Insert<T>(objs);
+                db.Inserts<T>(objs);
             }
         }
 
@@ -134,6 +134,19 @@ namespace Test.DAL.Base
             }
         }
         /// <summary>
+        /// 通过lambda表达式删除
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+
+        public bool Delete(Expression<Func<T, bool>> predicate)
+        {
+            using (var db = GetDB(1))
+            {
+                return db.Delete<T>(predicate);
+            }
+        }
+        /// <summary>
         /// 通过类删除
         /// </summary>
         /// <param name="entity"></param>
@@ -145,6 +158,20 @@ namespace Test.DAL.Base
                 return db.Delete<T>(entity);
             }
         }
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="ids">id列表,逗号分隔</param>
+        /// <param name="cName">id的列名</param>
+        /// <returns></returns>
+        public bool Deletes(string ids, string cName="id")
+        {
+            using (var db = GetDB(1))
+            {
+                return db.Deletes<T>(ids, cName);
+            }
+        }
+
         /// <summary>
         /// 通过id删除
         /// </summary>

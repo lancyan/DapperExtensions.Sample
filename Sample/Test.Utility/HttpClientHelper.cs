@@ -16,9 +16,10 @@ namespace Test.Utility
     public class HttpClientHelper
     {
         public static string ApiHost = System.Configuration.ConfigurationManager.AppSettings["apiWebsite"].ToString();
-        public static string platformId = System.Configuration.ConfigurationManager.AppSettings["platformId"].ToString();
-        public static string _token = SignHelper.Token;
-        public static string _sign = SignHelper.Sign;
+        public static string appId = System.Configuration.ConfigurationManager.AppSettings["appId"].ToString();
+
+        public static string _token = SignHelper.token;
+        public static string _sign = SignHelper.sign;
         public static bool isAuth = true;
         private static string _foldName;
         private static string _controllerName;
@@ -61,8 +62,7 @@ namespace Test.Utility
 
         public static async Task<string> GetAsyncString(string methodName = "Get", string paras = "")
         {
-            string result = await GetAsyncString(_foldName, _controllerName, methodName, paras);
-            return result;
+            return await GetAsyncString(_foldName, _controllerName, methodName, paras);
         }
 
         /// <summary>
@@ -119,10 +119,10 @@ namespace Test.Utility
         /// <summary>
         /// HttpClient实现Post请求
         /// </summary>
-        public static async Task<string> PostAsync<T>(string foldName, string controllerName, T value, string methodName = "Post")
+        public static string Post<T>(string foldName, string controllerName, T value, string methodName = "Post") where T : class, new()
         {
             string url = string.Format("{0}/{1}/{2}/{3}", ApiHost, foldName, controllerName, methodName);
-            
+
             //设置HttpClientHandler的AutomaticDecompression
             var handler = new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip };
             //创建HttpClient（注意传入HttpClientHandler）
@@ -134,7 +134,36 @@ namespace Test.Utility
                 }
                 //使用FormUrlEncodedContent做HttpContent
                 var content = new ObjectContent<T>(value, new JsonMediaTypeFormatter());
-                
+
+                //await异步等待回应           
+                var response = client.PostAsync(url, content);
+                response.Wait();
+                //确保HTTP成功状态值
+                //response.EnsureSuccessStatusCode();
+                //await异步读取最后的JSON（注意此时gzip已经被自动解压缩了，因为上面的AutomaticDecompression = DecompressionMethods.GZip）
+                return response.Result.Content.ReadAsStringAsync().Result;
+            }
+        }
+
+        /// <summary>
+        /// HttpClient实现Post请求
+        /// </summary>
+        public static async Task<string> PostAsync<T>(string foldName, string controllerName, T value, string methodName = "Post") where T : class, new()
+        {
+            string url = string.Format("{0}/{1}/{2}/{3}", ApiHost, foldName, controllerName, methodName);
+
+            //设置HttpClientHandler的AutomaticDecompression
+            var handler = new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip };
+            //创建HttpClient（注意传入HttpClientHandler）
+            using (var client = new HttpClient(handler))
+            {
+                if (isAuth)
+                {
+                    CreateAuth(client);
+                }
+                //使用FormUrlEncodedContent做HttpContent
+                var content = new ObjectContent<T>(value, new JsonMediaTypeFormatter());
+
                 //await异步等待回应           
                 var response = await client.PostAsync(url, content);
                 //确保HTTP成功状态值
@@ -154,7 +183,7 @@ namespace Test.Utility
         /// <param name="id">主键ID</param>
         /// <param name="values">要修改的字段，如： new {Name="test",Age=20}</param>
         /// </summary>
-        public static async Task<string> PutAsync(string foldName, string controllerName, object id, object values, string methodName = "Put")
+        public static async Task<string> PutAsync(string foldName, string controllerName, object id, object values, string methodName = "Put") 
         {
             string url = string.Format("{0}/{1}/{2}/{3}/{4}", ApiHost, foldName , controllerName, methodName, id);
            
@@ -183,7 +212,7 @@ namespace Test.Utility
         /// <summary>
         /// HttpClient实现Put请求
         /// </summary>
-        public static async Task<string> PutAsync<T>(string foldName, string controllerName, object id, T values, string methodName = "Put")
+        public static async Task<string> PutAsync<T>(string foldName, string controllerName, object id, T values, string methodName = "Put") where T : class, new()
         {
             string url = string.Format("{0}/{1}/{2}/{3}/{4}", ApiHost, foldName, controllerName, methodName, id);
           
@@ -247,12 +276,9 @@ namespace Test.Utility
         /// <returns></returns>
         private static void CreateAuth(HttpClient client)
         {
-            string token = EncryptHelper.Md5(Platform.Find(platformId) + "!#%&(" + DateTime.Now.ToString("yyyy/M/d"), 32, System.Text.Encoding.UTF8);
-
-            client.DefaultRequestHeaders.Add("platformId", platformId);
+            string token = SignHelper.CreateToken(SignHelper.valueArr[0], SignHelper.confuseArr[0], DateTime.Now.ToString("yyyy/MM/d/HH"));
+            client.DefaultRequestHeaders.Add("appId", appId);
             client.DefaultRequestHeaders.Add("token", token);
-
-
         }
 
     }

@@ -24,14 +24,19 @@ namespace Test.DAL.Base
         /// </summary>
         static ConnEnum()
         {
-            lists.Add(new ConnectionItem() { GroupName = "Test1", Name = "SQLServerTest", State = 0, Type = 0 }); //读库 -SQLServer
-            lists.Add(new ConnectionItem() { GroupName = "Test1", Name = "SQLServerTest", State = 1, Type = 0 }); //写库 -SQLServer
+            lists.Add(new ConnectionItem() { GroupName = connGroupName1, Name = "SQLServerTest", State = 0, Type = 0 }); //读库 -SQLServer
+            lists.Add(new ConnectionItem() { GroupName = connGroupName1, Name = "SQLServerTest", State = 1, Type = 0 }); //写库 -SQLServer
 
             //======================================================================================================================
 
-            lists.Add(new ConnectionItem() { GroupName = "Test2", Name = "MySqlTest", State = 2, Type = 1 });  //读写库 -MySQL
-            lists.Add(new ConnectionItem() { GroupName = "Test3", Name = "SQLiteTest", State = 2, Type = 2 });  //读写库 -SQLite
+            lists.Add(new ConnectionItem() { GroupName = connGroupName2, Name = "MySqlTest", State = 2, Type = 1 });  //读写库 -MySQL
+            lists.Add(new ConnectionItem() { GroupName = connGroupName3, Name = "SQLiteTest", State = 2, Type = 2 });  //读写库 -SQLite
         }
+
+        public static string connGroupName1 = "Test1";
+        public static string connGroupName2 = "Test2";
+        public static string connGroupName3 = "Test3";
+
     }
 
 }

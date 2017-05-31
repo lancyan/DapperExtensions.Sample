@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="renderer" content="webkit">
+
+    @RenderSection("meta", required: false)
+
+    <title>@ViewBag.Title - 管理员页面</title>
+    @Styles.Render("~/js/EasyUI/themes/icon.css")
+    @Styles.Render("~/Content/custom.css")
+    @Styles.Render("~/js/EasyUI/themes/default/easyui.css" )
+  
+ 
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    @Scripts.Render("~/js/EasyUI/jquery.min.js")
+    @Scripts.Render("~/js/EasyUI/jquery.easyui.min.js")
+    @Scripts.Render("~/Scripts/common.js")
+   
+
+
+</head>
+<body class="easyui-layout" style="overflow-y: hidden" scroll="no">
+    @RenderSection("header", required: false)
+    @RenderBody()
+    @RenderSection("footer", required: false)
+</body>
+</html>
+

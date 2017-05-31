@@ -36,13 +36,17 @@ namespace Test.API.Filters
             string hm = request.HttpMethod;
             var dict = actionContext.ActionArguments;
 
-            if (!String.IsNullOrWhiteSpace(request.Headers[SignHelper.PlatformId]))
+            if (!String.IsNullOrWhiteSpace(request.Headers[SignHelper.appId]))
             {
-                dict.Add(SignHelper.PlatformId, request.Headers[SignHelper.PlatformId]);
+                dict.Add(SignHelper.appId, request.Headers[SignHelper.appId]);
             }
-            if (!String.IsNullOrWhiteSpace(request.Headers[SignHelper.Token]))
+            if (!String.IsNullOrWhiteSpace(request.Headers[SignHelper.token]))
             {
-                dict.Add(SignHelper.Token, request.Headers[SignHelper.Token]);
+                dict.Add(SignHelper.token, request.Headers[SignHelper.token]);
+            }
+            if (!String.IsNullOrWhiteSpace(request.Headers[SignHelper.userId]))
+            {
+                dict.Add(SignHelper.userId, request.Headers[SignHelper.userId]);
             }
 
             sb.AppendLine(DateTime.Now.ToString() + "\r\n" + hm + "： " + request.Url.AbsoluteUri);
@@ -93,23 +97,26 @@ namespace Test.API.Filters
                 #region 给非JSON格式参数的请求赋值
                 if (dict.Count > 0)
                 {
-                    var type = ((actionContext.ActionDescriptor).ActionBinding.ParameterBindings[0]).Descriptor.ParameterType;
-                    for (int i = 0, count = dict.Count; i < count; i++)
+                    if (actionContext.ActionDescriptor.ActionBinding.ParameterBindings.Length > 0)
                     {
-                        var kvp = dict.ElementAt(i);
-                        string key = kvp.Key;
-                        if (kvp.Value == null)
+                        var type = ((actionContext.ActionDescriptor).ActionBinding.ParameterBindings[0]).Descriptor.ParameterType;
+                        for (int i = 0, count = dict.Count; i < count; i++)
                         {
-                            var val = qs[key];
-                            if (val == null && !Common.IsBaseType(type))
+                            var kvp = dict.ElementAt(i);
+                            string key = kvp.Key;
+                            if (kvp.Value == null)
                             {
-                                dict[key] = Common.NameValue2Object(qs, type);
+                                var val = qs[key];
+                                if (val == null && !Common.IsBaseType(type))
+                                {
+                                    dict[key] = Common.NameValue2Object(qs, type);
+                                }
+                                else
+                                {
+                                    dict[key] = Common.HackType(val, type);
+                                }
+                                break;
                             }
-                            else
-                            {
-                                dict[key] = Common.HackType(val, type);
-                            }
-                            break;
                         }
                     }
                 }

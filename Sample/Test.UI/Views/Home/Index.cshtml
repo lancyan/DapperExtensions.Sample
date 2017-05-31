@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+
+@section meta{
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache"> 
+}
+
+<script src="~/Scripts/login.js"></script>
+
+
+
+<div>
+
+    <table id="myTab" class="customTable" style="width:600px;min-width:600px;height:135px; min-height:135px;border-collapse: collapse;">
+        <tr>
+            <td colspan="3" class="tab_height">用户登录</td>
+        </tr>
+        <tr>
+            <td class="rightTxt">
+                &nbsp;
+                用户名：
+            </td>
+            <td class="leftTxt">
+                <input id="txtUserName" name="UserName" type="text" class="tab_width" onfocus="setTDMessage(this)" />
+            </td>
+
+            <td class="leftTxt"> </td>
+
+        </tr>
+        <tr>
+            <td class="rightTxt">
+                &nbsp;
+                密码：
+            </td>
+            <td class="leftTxt">
+                <input id="txtPassword" name="Password" type="password" class="tab_width" value="aaa" onfocus="setTDMessage(this)" />
+            </td>
+            <td class="leftTxt"></td>
+        </tr>
+        <tr>
+            <td class="rightTxt">
+                <img id="imgValidate" height="24" alt="" src="/home/GetValidateCode" onclick="javascript: this.src = '/Home/GetValidateCode?rdm=' + new Date().getTime()" />
+            </td>
+            <td class="leftTxt">
+                <input id="txtValidateCode" type="text" class="tab_width" onfocus="setTDMessage(this)" />
+            </td>
+            <td class="leftTxt"> &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td class="leftTxt">
+                <div>
+                    &nbsp; <input id="btnSubmit" type="button" value="登录" onclick="return btnLogin()" class="tab_height" />
+                    &nbsp; <input id="btnRegister" type="button" value="注册" onclick="return btnRegist()" class="tab_height" />
+                    <input id="chxCheckedMe" type="checkbox" checked="checked" />记住我
+                </div>
+            </td>
+            <td></td>
+
+        </tr>
+    </table>
+
+</div>

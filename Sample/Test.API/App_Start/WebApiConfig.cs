@@ -9,6 +9,7 @@ using System.Net.Http.Formatting;
 using WebApi.OutputCache.V2;
 using Test.Cache;
 using Test.API.Filters;
+using Newtonsoft.Json.Converters;
 
 namespace Test.API.App_Start
 {
@@ -18,6 +19,18 @@ namespace Test.API.App_Start
         {
             config.Filters.Add(new ApiAuthenticationFilter());
             config.Filters.Add(new ApiErrorFilter());
+
+            config.Filters.Add(new OperateTrackAttribute());
+
+
+            var jsonFormatter = new JsonMediaTypeFormatter();
+            var settings = jsonFormatter.SerializerSettings;
+
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+            timeConverter.DateTimeFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ss";
+            settings.Converters.Add(timeConverter);
+            //settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Services.Replace(typeof(IContentNegotiator), new JsonContentNegotiator(jsonFormatter));
 
             config.CacheOutputConfiguration().RegisterCacheOutputProvider(() => CacheHelper.Instance);
             // Web API 路由
@@ -29,7 +42,6 @@ namespace Test.API.App_Start
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.Services.Replace(typeof(IContentNegotiator), new JsonContentNegotiator(new JsonMediaTypeFormatter()));
 
             //GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
             //GlobalConfiguration.Configuration.Formatters.JsonFormatter.MediaTypeMappings.Add(new QueryStringMapping("datatype", "json", "application/json"));

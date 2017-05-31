@@ -15,11 +15,12 @@ using System.Linq;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Test.Entity;
+using Test.Entity.SYS;
 using Test.DAL;
 using Test.BLL.Base;
 using DapperExtensions;
 using Dapper;
+using Test.Entity;
 
 namespace Test.BLL
 {
@@ -32,9 +33,9 @@ namespace Test.BLL
         {
             return dal.Insert(model);
         }
-        public void Insert(params Users[] models)
+        public void Insert(IEnumerable<Users> models)
         {
-            dal.Insert(models);
+            dal.Inserts(models);
         }
         #endregion
 
@@ -50,7 +51,7 @@ namespace Test.BLL
         #endregion
 
         #region Delete
-      
+
 
         public bool Delete(Users obj)
         {
@@ -178,30 +179,36 @@ namespace Test.BLL
         }
         #endregion
 
-
         /// <summary>
         /// 执行存储过程
         /// </summary>
         /// <returns></returns>
         public dynamic UserLogin(String userName, String password)
         {
-            DynamicParameters paras = new DynamicParameters();
-            paras.Add("@UserName", userName);
-            paras.Add("@Password", password);
+            //DynamicParameters paras = new DynamicParameters();
+            //paras.Add("@UserName", userName);
+            //paras.Add("@Password", password);
             //paras.Add("@res", ParameterDirection.Output);
-            var entity = dal.Execute<UserData>("Pro_UserLogin", paras);
-            return entity;
+            var list = dal.Query<UserData>(string.Format("select aa.Id as UserId, aa.UserName as UserName, bb.RoleId as Role from Users aa INNER JOIN UserRoles bb on aa.userName='{0}' and aa.password='{1}' and aa.Status=1 and aa.Id=bb.UserId", userName, password));
+
+            var query = from c in list.AsEnumerable()
+                        group c by new
+                        {
+                            userId = c.UserId,
+                            userName = c.UserName,
+                        }
+                        into s
+                        select new UserDatas
+                        {
+                            UserId = s.Select(p => p.UserId).First(),
+                            UserName = s.Select(p => p.UserName).First(),
+                            Roles = s.Select(p => p.Role).ToArray()
+
+                        };
+            //string.Join(",", s.Select(p => p.Roles))
+            return query.FirstOrDefault();
         }
-
-
     }
 
-    public class UserData
-    {
-        public int Id { get; set; }
-        public int[] Roles { get; set; }
-        public string UserName { get; set; }
-        public string Mobile { get; set; }
 
-    }
 }

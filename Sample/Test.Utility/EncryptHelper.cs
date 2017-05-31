@@ -115,7 +115,7 @@ namespace Test.Utility
                 }
                 result = stringBuilder.ToString();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 result = ex.ToString();
             }
@@ -144,7 +144,7 @@ namespace Test.Utility
                 memoryStream.Close();
                 result = System.Text.Encoding.UTF8.GetString(memoryStream.ToArray());
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 result = ex.ToString();
             }
@@ -216,7 +216,7 @@ namespace Test.Utility
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }

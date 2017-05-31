@@ -9,9 +9,11 @@ using System.Web.Http;
 using WebApi.OutputCache.V2;
 using Test.API.Filters;
 using Newtonsoft.Json;
+using Test.Utility;
+using Test.Entity.SYS;
 //using Newtonsoft.Json;
 
-namespace API.Controllers
+namespace Test.API.Controllers.Test
 {
     
     //使缓存作废
@@ -23,7 +25,6 @@ namespace API.Controllers
     public class UsersController : ApiController
     {
         //注意post参数不能是多个对象参数
-        //http://www.cnblogs.com/Juvy/p/3903974.html
         //[ApiActionFilter]
         /// <summary>
         /// 获取一个用户通过id
@@ -36,13 +37,19 @@ namespace API.Controllers
             return bll.Get(id);
         }
 
+
+
         /// <summary>
         /// 获取用户名
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<string> GetUserName()
+         [HttpPost]
+        public UserDatas UserLogin(dynamic obj)
         {
-            return new string[] { "Test1", "Test2" };
+            string userName = obj.userName;
+            string passWord = obj.passWord;
+            UsersBLL bll = new UsersBLL();
+            return bll.UserLogin(userName, passWord);
         }
 
        
@@ -55,12 +62,12 @@ namespace API.Controllers
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public IEnumerable<Users> GetList([FromUri]Users user, int pageIndex, int pageSize)
+        public IEnumerable<Users> GetList(string where, int pageIndex, int pageSize, string orderBy)
         {
             UsersBLL bll = new UsersBLL();
-
-            return bll.Where(string.Format("userName='{0}'" , user.UserName), "id", pageIndex, pageSize);
-
+            string decodeWhere = Common.Base64ToString(where);
+            string newWhere = Common.Where2Query<Users>(decodeWhere);
+            return bll.Where(newWhere, orderBy, pageIndex, pageSize);
         }
 
         //[HttpGet]
@@ -70,12 +77,12 @@ namespace API.Controllers
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public int GetCount(string userName)
+        public int GetCount(string where)
         {
             UsersBLL bll = new UsersBLL();
-
-            return bll.Count(string.Format("userName='{0}'", userName));
-
+            string decodeWhere = Common.Base64ToString(where);
+            string newWhere = Common.Where2Query<Users>(decodeWhere);
+            return bll.Count(newWhere);
         }
 
 
@@ -91,31 +98,7 @@ namespace API.Controllers
             return bll.Where(p => p.Status != 0);
         }
 
-        /// <summary>
-        /// 获取用户购买的所有商品信息
-        /// </summary>
-        /// <param name="userId">用户编号</param>
-        /// <returns></returns>
-        [CacheOutput(ClientTimeSpan = 60, ServerTimeSpan = 60)]
-        [ApiActionFilter]
-        public IEnumerable<Goods> GetGoodsByUser([FromBody]string userId)
-        {
-            UsersBLL bll = new UsersBLL();
-            return bll.GetGoodsByUser(userId);
-        }
-
-        /// <summary>
-        /// 获取用户购买的所有商品信息和用户信息,返回一个自定义类型
-        /// </summary>
-        /// <param name="userId">用户编号</param>
-        /// <returns></returns>
-        [CacheOutput(ClientTimeSpan = 60, ServerTimeSpan = 60)]
-        [ApiActionFilter]
-        public IEnumerable<dynamic> GetBillsByUser([FromBody]string userId)
-        {
-            UsersBLL bll = new UsersBLL();
-            return bll.GetBillsByUser(userId);
-        }
+       
 
         /// <summary>
         /// Post提交一个User对象
@@ -132,9 +115,49 @@ namespace API.Controllers
             //    "uid": 10
             //}
             UsersBLL bll = new UsersBLL();
-            return bll.Insert(entity) > 0;
+            if (entity.ID == 0)
+            {
+                return bll.Insert(entity) > 0;
+            }
+            else
+            {
+                return bll.Update(entity);
+            }
         }
 
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="id">用户id</param>
+        /// <param name="pwd1">原密码</param>
+        /// <param name="pwd2">修改后的密码</param>
+        /// <returns>是否成功</returns>
+        [HttpPost]
+        public bool UpdatePwd(dynamic obj)
+        {
+            int id = obj.id;
+            string pwd1 = obj.pwd1;
+            string pwd2 = obj.pwd2;
+            UsersBLL bll = new UsersBLL();
+            return bll.Update(new { password = pwd2 }, new { id = id, password = pwd1 });
+        }
+
+        public bool UpdateRole(dynamic obj)
+        {
+            int userId = obj.userId;
+            string userName = obj.userName;
+            int[] roleIds = obj.roleIds;
+            UserRolesBLL bll = new UserRolesBLL();
+            return bll.UpdateRole(userId, userName, roleIds);
+
+        }
+
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="id">用户编号</param>
+        /// <param name="entity">用户实体类</param>
+        /// <returns>是否成功</returns>
         [HttpPut]
         public bool Put(int id, [FromBody]Users entity)
         {

@@ -1,0 +1,79 @@
+a:link {color: #1f3a87; text-decoration:none;}
+a:visited {color: #83006f;text-decoration:none;}
+a:hover {color: #bc2931; text-decoration:underline;}
+a:active {color: #bc2931;}
+a{ color:black; text-decoration:underline;}
+a:hover{ color:Red; text-decoration:underline;}
+a:focus {outline:none;}
+
+.textbox {border: #878787 1px solid;padding: 4px 3px;font:Verdana, Geneva, sans-serif,ËÎÌו;line-height: 14px; background-color: #fff;  height: auto; font-size: 14px;  font-weight: bold; width: 190px; }
+.txt01{font:Verdana, Geneva, sans-serif,ËÎÌו;padding:3px 2px 2px 2px; border-width:1px; border-color:#ddd;  color:#000;}
+.txt02 {border: #878787 1px solid;padding: 4px 3px;font:Verdana, Geneva, sans-serif,ËÎÌו;line-height: 14px; background-color: #fff;  height: auto; font-size: 14px;}
+.footer{text-align:center;color:#15428B; margin:0px; padding:0px;line-height:23px; font-weight:bold;}
+.head a{color:White;text-decoration:underline;}
+
+/*easy UI*/
+.easyui-accordion ul{list-style-type:none;margin:0px; padding:10px;}
+.easyui-accordion ul li{ padding:0px;}
+.easyui-accordion ul li a{line-height:24px;}
+.easyui-accordion ul li div{margin:2px 0px;padding-left:10px;padding-top:2px;}
+.easyui-accordion ul li div.hover{border:1px dashed #99BBE8; background:#E0ECFF;cursor:pointer;}
+.easyui-accordion ul li div.hover a{color:#416AA3;}
+.easyui-accordion ul li div.selected{border:1px solid #99BBE8; background:#E0ECFF;cursor:default;}
+.easyui-accordion ul li div.selected a{color:#416AA3; font-weight:bold;}
+
+
+
+customTable {
+    width:100%;
+    margin:0 auto;
+    border:1px solid #0094ff;
+    border-collapse:collapse;
+}
+
+table td {
+    border: solid 1px #0094ff;
+    text-align: center;
+}
+table th {
+    color: #0094ff;
+    line-height: 24px;
+    text-align: center;
+    font-weight: bold;
+    background-image: url(/images/tabletop.gif);
+    background-repeat: repeat-x;
+}
+
+.tab_width {
+    width:200px;
+    
+}
+.tab_height {
+    height:24px;
+}
+.button1 {
+    background: url(/images/button_bg.gif) no-repeat -20px -15px;
+    border: none;
+    width: 61px;
+    height: 22px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-top: 0px !important;
+    margin-top: 7px;
+    text-align: center;
+    outline: none;
+    font-size:12px;
+}
+.button1:hover {
+    background-position: -108px -15px;
+}
+.rightTxt {
+    text-align: right;
+    width:33%;
+    padding-right:4px;
+
+}
+.leftTxt {
+    text-align: left;
+    width:33%;
+}
