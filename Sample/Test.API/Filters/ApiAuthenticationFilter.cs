@@ -129,21 +129,23 @@ namespace Test.API.Filters
                 sb.AppendLine("参数：" + request.QueryString.ToString());
             }
 
-            base.OnActionExecuting(actionContext);
-            return;
-
-            if (SignHelper.IsPassVerify(qs, dict))
+            bool isHasNoAttris = actionContext.ActionDescriptor.GetCustomAttributes<NoFilterAttribute>().Any() || actionContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes<NoFilterAttribute>().Any();
+            if (!isHasNoAttris)//没有NoFilter属性
             {
-                base.OnActionExecuting(actionContext);
+                if (!SignHelper.IsPassVerify(qs, dict))
+                {
+                    ApiResultModel result = new ApiResultModel()
+                    {
+                        Code = (int)HttpStatusCode.Unauthorized,
+                        Message = "非法的请求格式"
+                    };
+                    actionContext.Response = actionContext.Request.CreateResponse((HttpStatusCode)result.Code, result);
+                }
+                return base.OnActionExecutingAsync(actionContext, cancellationToken);
             }
             else
             {
-                ApiResultModel result = new ApiResultModel()
-                {
-                    Status = HttpStatusCode.Unauthorized,
-                    Message = "错误的请求格式"
-                };
-                actionContext.Response = actionContext.Request.CreateResponse(result.Status, result);
+                return null;
             }
 
         }
